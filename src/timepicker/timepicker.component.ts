@@ -19,7 +19,8 @@ import { TimepickerConfig } from './timepicker.config';
 import {
   TimeChangeSource,
   TimepickerComponentState,
-  TimepickerControls
+  TimepickerControls,
+  Time
 } from './timepicker.models';
 import {
   isValidDate,
@@ -91,6 +92,21 @@ export class TimepickerComponent
   @Input() min: Date;
   /** maximum time user can select */
   @Input() max: Date;
+
+  /** existing time input */
+  private _time: Time;
+  @Input() public get time(): Time {
+    return this._time;
+  }
+  public set time(value: Time) {
+    if (value !== this._time) {
+      this._time = value;
+      // update local time values
+      this.updateHours(value.hour.toString());
+      this.updateMinutes(value.minute.toString());
+      this.updateSeconds(value.seconds.toString());
+    }
+  }
 
   /** emits true if value is a valid date */
   @Output() isValid: EventEmitter<boolean> = new EventEmitter();
