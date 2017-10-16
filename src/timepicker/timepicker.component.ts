@@ -93,21 +93,6 @@ export class TimepickerComponent
   /** maximum time user can select */
   @Input() max: Date;
 
-  /** existing time input */
-  private _time: Time;
-  @Input() public get time(): Time {
-    return this._time;
-  }
-  public set time(value: Time) {
-    if (value !== this._time) {
-      this._time = value;
-      // update local time values
-      this.updateHours(value.hour.toString());
-      this.updateMinutes(value.minute.toString());
-      this.updateSeconds(value.seconds.toString());
-    }
-  }
-
   /** emits true if value is a valid date */
   @Output() isValid: EventEmitter<boolean> = new EventEmitter();
 
